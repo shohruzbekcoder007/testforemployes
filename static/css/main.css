@@ -1,0 +1,31 @@
+.my-container{
+    padding-top: 100px;
+    padding-bottom: 60px;
+}
+
+.logo-img {
+    width: 80px !important;
+}
+
+.my-test-body {
+    padding-left:  20px;
+    padding-right: 20px;
+    position: relative;
+}
+
+.my-test-body::before {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #00b9e5;
+}
+
+.user-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 15px;
+}
