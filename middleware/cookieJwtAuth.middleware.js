@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 const cookieJwtAuth = (req, res, next) => {
 
     const token = req.cookies.token
+
     try{
         const user = jwt.verify(token, "q1y1npar0l")
         req.user = user;
@@ -13,6 +14,7 @@ const cookieJwtAuth = (req, res, next) => {
 
         });
     }
+    
 }
 
 module.exports.cookieJwtAuth = cookieJwtAuth

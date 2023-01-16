@@ -16,6 +16,11 @@ const UserSchema = new mongoose.Schema({
         unique: false,
         required: true
     },
+    group: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "groups",
+        required: true,
+    },
     status: {
         type: Number,
         enum: [1,2,3],

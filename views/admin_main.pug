@@ -1,0 +1,43 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+        link(rel="stylesheet", href="/css/semantic.css")
+        link(rel="stylesheet", href="/css/main.css")
+    body 
+        .ui.top.fixed.menu
+            .item
+                img.logo-img(src='/images/uzstat.png')
+            .user-name=name
+        div(style="padding: 90px 30px")
+            .ui.attached.message
+                .header Welcome to our site!
+                p Fill out the form below to sign-up for a new account
+            .ui.form.attached.fluid.segment.my-body
+                .field
+                    label First Name
+                    input(placeholder="First Name", type="text")
+                .two.fields
+                    .field
+                        label First Name
+                        input(placeholder="First Name", type="text")
+                    .field
+                        label Last Name
+                        input(placeholder="Last Name", type="text")
+                    .field
+                        label Username
+                        input(placeholder="Username", type="text")
+                    .field
+                        label Password
+                        input(type="password")
+                .inline.field
+                    .ui.blue.submit.button Submit
+            .ui.bottom.attached.error.message
+                i.icon.help
+                | Already signed up? 
+                a(href="#") Login here
+                |  instead.
+        script(src="/js/jquery.js")
