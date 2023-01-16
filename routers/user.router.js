@@ -5,21 +5,29 @@ const bcrypt = require('bcryptjs')
 const { cookieJwtAuth } = require('./../middleware/cookieJwtAuth.middleware')
 const { User } = require('./../models/user.model')
 
-router.post('/',  async (req, res) => {
-    try{
+router.post('/', cookieJwtAuth, async (req, res) => {
 
-        const salt = await bcrypt.genSalt()
-        req.body.password = await bcrypt.hash(req.body.password, salt)
+    try {
+        if (req.user.status === 1) {
 
-        let user = new User(req.body)
-        let new_user = await user.save()
+            const salt = await bcrypt.genSalt()
+            req.body.password = await bcrypt.hash(req.body.password, salt)
 
-        return res.send(_.pick(new_user, ['_id', 'name']))
+            let user = new User(req.body)
+            let new_user = await user.save()
 
-    } catch(err) {
+            return res.render('super_admin_main_create_user', {
+                name : req.user.name
+            })
+
+        } else {
+            return res.render('login', {})
+        }
+
+    } catch (err) {
         return res.send("Tizimda xatolik yuzaga keldi")
     }
-    
+
 })
 
 router.post('/login', async (req, res) => {
@@ -67,12 +75,21 @@ router.post('/login', async (req, res) => {
 
 })
 
+router.get('/userlist', async(req, res) => {
+    try {
+        const userlist = await User.find();
+        return res.send(userlist);
+    } catch (err) {
+        return res.status(404).send("Xatolik yuzaga keldi");
+    }
+})
+
 router.delete('/delete', cookieJwtAuth, async (req, res) => {
     let user = await User.findByIdAndRemove(req.query.id);
     if (!user)
-        return res.status(400).send({ok: false});
+        return res.status(400).send({ ok: false });
 
-    return res.send({ok: true});
+    return res.send({ ok: true });
 })
 
 module.exports = router;

@@ -12,41 +12,44 @@ html(lang="en")
             .item
                 img.logo-img(src='/images/uzstat.png')
             .user-name=name
-        div(style="padding: 90px 30px")
+        .my-container
             .super-admin-navbar
                 .ui.buttons.blue
                     a(href="/group").ui.blue.basic.button group yaratish
                     a(href="/group/user").ui.blue.button user yaratish
                     a.ui.blue.basic.button natijalarni ko'rish
             .ui.attached.message
-                .header Welcome to our site!
-                p Fill out the form below to sign-up for a new account
-            .ui.form.attached.fluid.segment
+                .header Create user
+                p This page for to create new user
+            form(action="/user/", method="post").ui.form.attached.fluid.segment
                 .field
                     label Name
-                    input(placeholder="Name", type="text", id='name')
+                    input(placeholder="Name", type="text", id='name' name="name")
                 .four.fields
                     .field
                         label User Name
-                        input(placeholder="User Name", type="text", id='user_name')
+                        input(placeholder="User Name", type="text", id='user_name' name='user_name')
                     .field
                         label Password
-                        input(placeholder="Password", type="password", id='password')
+                        input(placeholder="Password", type="password", id='password' name='password')
                     .field
-                        label Group
-                        input(placeholder="Group", type="text", id='group')
+                        label(for="group") Status
+                        select(name="group")#group.ui.dropdown
                     .field
                         label(for="status") Status
-                        select#status.ui.dropdown
+                        select(name="status")#status.ui.dropdown
                             option(value="3") Xodim
                             option(value="2") Admin
                 .inline.field
-                    .ui.blue.submit.button Submit
-            .ui.bottom.attached.error.message
-                i.icon.help
-                | Already signed up? 
-                a(href="#") Login here
-                |  instead.
+                    button.ui.blue.submit.button(type='submit') Submit
+            //- .ui.bottom.attached.error.message
+            //-     i.icon.help
+            //-     | Already signed up? 
+            //-     a(href="#") Login here
+            //-     |  instead.
+            .user-list
+                #userlist.ui.middle.aligned.divided.list
         script(src="/js/jquery.js")
         script(src="/js/axios.js")
         script(src="/js/group.js")
+        script(src="/js/user.js")

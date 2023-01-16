@@ -6,18 +6,20 @@ const { cookieJwtAuth } = require('./../middleware/cookieJwtAuth.middleware')
 
 router.post('/', cookieJwtAuth, async function(req, res){
 
+    console.log(req.user, req.user)
+
     const { error } = validate(req.body)
     
     if(error)
         return res.status(400).send(error.details[0].message)
     
-    // console.log(req.user?.status)
-    
     try{
         if(req.user.status === 1){
             let group = new Group(_.pick(req.body, ['group_name',]))
             let newgroup = await group.save()
-            return res.status(201).send(newgroup)
+            return res.render('super_admin_main', {
+                name : req.user.name
+            })
         } else {
             return res.send('This user do not create new group')
         }

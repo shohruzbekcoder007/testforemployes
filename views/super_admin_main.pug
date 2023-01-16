@@ -12,39 +12,24 @@ html(lang="en")
             .item
                 img.logo-img(src='/images/uzstat.png')
             .user-name=name
-        div(style="padding: 90px 30px")
+        .my-container
             .super-admin-navbar
                 .ui.buttons.blue
                     a(href="/group").ui.blue.button group yaratish
                     a(href="/group/user").ui.blue.basic.button user yaratish
                     a.ui.blue.basic.button natijalarni ko'rish
             .ui.attached.message
-                .header Welcome to our site!
-                p Fill out the form below to sign-up for a new account
-            .ui.form.attached.fluid.segment
+                .header Create group
+                p This page for to create new group
+            form(action="/group/", method="post").ui.form.attached.fluid.segment
                 .field
                     label Name
-                    input(placeholder="Name", type="text", id='name')
-                .four.fields
-                    .field
-                        label User Name
-                        input(placeholder="User Name", type="text", id='user_name')
-                    .field
-                        label Password
-                        input(placeholder="Password", type="password", id='password')
-                    .field
-                        label Group
-                        input(placeholder="Group", type="text", id='group')
-                    .field
-                        label(for="status") Status
-                        select#status.ui.dropdown
-                            option(value="3") Xodim
-                            option(value="2") Admin
+                    input(placeholder="Name", type="text", id='name' name="group_name")
                 .inline.field
-                    .ui.blue.submit.button Submit
-            .ui.bottom.attached.error.message
-                i.icon.help
-                | Already signed up? 
-                a(href="#") Login here
-                |  instead.
+                    button(type="submit").ui.blue.submit.button Submit
+            .group-list
+                #grouplist.ui.middle.aligned.divided.list
         script(src="/js/jquery.js")
+        script(src="/js/axios.js")
+        script(src="/js/group.js")
+        script(src="/js/user.js")

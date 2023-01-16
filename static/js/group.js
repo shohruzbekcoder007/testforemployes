@@ -13,6 +13,12 @@ $(document).ready(function () {
         axios(options)
             .then(response => {
                 const groups = response.data
+                groups.forEach(element => {
+                    if(document.querySelector("#grouplist")){
+                        $("#grouplist").append(`<div class="item"><div class="header">${element.group_name}</div><span>${element.group_name}</span></div>`)
+                    }
+                    $("#group").append(`<option value=${element._id}>${element.group_name}</option>`)
+                });
                 console.log(groups)
             })
             .catch(err => {

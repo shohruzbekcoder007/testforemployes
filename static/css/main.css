@@ -171,3 +171,11 @@
 .super-admin-navbar{
     text-align: center;
 }
+
+.user-list, .group-list{
+    padding-top: 30px;
+}
+
+.my-container {
+    padding: 90px 30px 30px 30px;
+}
