@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser")
 // const view_routers = require('./routers/view_routers')
 const user_router = require('./routers/user.router')
 const group = require('./routers/group.router')
+const full_test = require('./routers/create_full_test.router')
 
 const app = express();
 
@@ -42,6 +43,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/test')
 
 app.use('/user', user_router)
 app.use('/group', group)
+app.use('/fulltest', full_test)
 
 app.get("/", (req,res) => {
   return res.render('login', {})

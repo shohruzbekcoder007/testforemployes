@@ -6,8 +6,6 @@ const { cookieJwtAuth } = require('./../middleware/cookieJwtAuth.middleware')
 
 router.post('/', cookieJwtAuth, async function(req, res){
 
-    console.log(req.user, req.user)
-
     const { error } = validate(req.body)
     
     if(error)
