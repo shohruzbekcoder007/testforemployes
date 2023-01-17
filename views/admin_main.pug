@@ -14,30 +14,61 @@ html(lang="en")
             .user-name=name
         div(style="padding: 90px 30px")
             .ui.attached.message
-                .header Welcome to our site!
-                p Fill out the form below to sign-up for a new account
-            .ui.form.attached.fluid.segment.my-body
+                .header Create test
+                p Create new test in this page
+            form.ui.form.attached.fluid.segment.my-body(id="full-test")
                 .field
-                    label First Name
-                    input(placeholder="First Name", type="text")
-                .two.fields
+                    label Question text
+                    input(placeholder="Question text", type="text" name="text_question", id="text_question")
+                .four.fields
                     .field
-                        label First Name
-                        input(placeholder="First Name", type="text")
+                        label Answer
+                        input(placeholder="Answer", type="text" name="test_answer1", id="test_answer1")
                     .field
-                        label Last Name
-                        input(placeholder="Last Name", type="text")
+                        label Answer
+                        input(placeholder="Answer", type="text" name="test_answer2", id="test_answer2")
                     .field
-                        label Username
-                        input(placeholder="Username", type="text")
+                        label Answer
+                        input(placeholder="Answer", type="text" name="test_answer3", id="test_answer3")
                     .field
-                        label Password
-                        input(type="password")
+                        label Answer
+                        input(placeholder="Answer", type="text" name="test_answer4", id="test_answer4")
+                <div class="ui form">
+                    <div class="grouped fields">
+                        <label id="text_question_label">Question text</label>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="accuracy" checked="checked" id="1" value="1">
+                                <label for="1" id="test_answer1_label">Answer</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="accuracy" id="2" value="2">
+                                <label for="2" id="test_answer2_label">Answer</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="accuracy" id="3" value="3">
+                                <label for="3" id="test_answer3_label">Answer</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="accuracy" id="4" value="4">
+                                <label for="4" id="test_answer4_label">Answer</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 .inline.field
-                    .ui.blue.submit.button Submit
+                    .ui.blue.submit.button(id="btn-submit") Submit
             .ui.bottom.attached.error.message
                 i.icon.help
                 | Already signed up? 
                 a(href="#") Login here
                 |  instead.
         script(src="/js/jquery.js")
+        script(src="/js/axios.js")
+        script(src="/js/create_test.js")

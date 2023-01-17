@@ -12,7 +12,10 @@ const { Answer } = require('../models/answer.model');
 const { Test, validate } = require('../models/app_test.model');
 const { CorrectAnswer } = require('../models/correct_answer.model');
 
-router.post('/', async (req, res) => {
+router.post('/', cookieJwtAuth, async (req, res) => {
+
+    console.log(req.body, req.user.group)
+    req.body.group_id = req.user.group;
 
     const { error } = validateFullTest(req.body);
     if(error)
@@ -94,7 +97,7 @@ router.post('/', async (req, res) => {
             test_answer2: newanswer2._id,
             test_answer3: newanswer3._id,
             test_answer4: newanswer4._id,
-            group_id: req.body.group_id
+            group_id: req.user.group
         });
         let newtest = await test.save();
 
