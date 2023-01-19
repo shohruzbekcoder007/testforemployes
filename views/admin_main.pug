@@ -12,7 +12,7 @@ html(lang="en")
             .item
                 img.logo-img(src='/images/uzstat.png')
             .user-name=name
-        div(style="padding: 90px 30px")
+        div(style="padding: 90px 30px 0 30px")
             .ui.attached.message
                 .header Create test
                 p Create new test in this page
@@ -62,6 +62,7 @@ html(lang="en")
                         </div>
                     </div>
                 </div>
+
                 .inline.field
                     .ui.blue.submit.button(id="btn-submit") Submit
             .ui.bottom.attached.error.message
@@ -69,6 +70,7 @@ html(lang="en")
                 | Already signed up? 
                 a(href="#") Login here
                 |  instead.
+            #testlist.test-list
         script(src="/js/jquery.js")
         script(src="/js/axios.js")
         script(src="/js/create_test.js")

@@ -4,6 +4,8 @@ const _ = require('lodash')
 const bcrypt = require('bcryptjs')
 const { cookieJwtAuth } = require('./../middleware/cookieJwtAuth.middleware')
 const { User } = require('./../models/user.model')
+const { Test } = require('../models/app_test.model')
+const { Result } = require('../models/result.model')
 
 router.post('/', cookieJwtAuth, async (req, res) => {
 
@@ -54,8 +56,18 @@ router.post('/login', async (req, res) => {
     })
 
     if (user.status === 3) {
+        const result = await Result.findOne({user: user._id})
+        
+        let again = false
+        if (result) {
+            again = true
+        }
+        
+        const testlist = await Test.find({group_id : user.group}).populate('text_question').populate('test_answer1').populate('test_answer2').populate('test_answer3').populate('test_answer4')
         return res.render('main', {
-            name: user.name
+            name: user.name,
+            testlist: testlist,
+            again: again
         })
     }
 

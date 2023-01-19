@@ -11,37 +11,37 @@ const { Query } = require('../models/question.model');
 const { Answer } = require('../models/answer.model');
 const { Test, validate } = require('../models/app_test.model');
 const { CorrectAnswer } = require('../models/correct_answer.model');
+const { Result } = require('../models/result.model');
 
 router.post('/', cookieJwtAuth, async (req, res) => {
 
-    console.log(req.body, req.user.group)
     req.body.group_id = req.user.group;
 
     const { error } = validateFullTest(req.body);
-    if(error)
+    if (error)
         return res.status(400).send(error.details[0].message);
 
-    if(questionValidate(req.body.text_question || {}).error)
+    if (questionValidate(req.body.text_question || {}).error)
         return res.status(400).send(error.details[0].message);
 
 
-    if(answerValidate(req.body.test_answer1 || {}).error)
+    if (answerValidate(req.body.test_answer1 || {}).error)
         return res.status(400).send(error.details[0].message);
 
-    
-    if(answerValidate(req.body.test_answer2 || {}).error)
+
+    if (answerValidate(req.body.test_answer2 || {}).error)
         return res.status(400).send(error.details[0].message);
 
-    if(answerValidate(req.body.test_answer3 || {}).error)
+    if (answerValidate(req.body.test_answer3 || {}).error)
         return res.status(400).send(error.details[0].message);
 
-    if(answerValidate(req.body.test_answer4 || {}).error)
+    if (answerValidate(req.body.test_answer4 || {}).error)
         return res.status(400).send(error.details[0].message);
 
-    let haveTestAnswer = false || req.body.test_answer1.accuracy || req.body.test_answer2.accuracy
-                                  req.body.test_answer3.accuracy || req.body.test_answer4.accuracy
+    let haveTestAnswer = false || req.body.test_answer1.accuracy || req.body.test_answer2.accuracy ||
+        req.body.test_answer3.accuracy || req.body.test_answer4.accuracy
 
-    if(haveTestAnswer === false){
+    if (haveTestAnswer === false) {
         return res.status(400).send("To'g'ri javobni kiriting")
     }
 
@@ -69,28 +69,28 @@ router.post('/', cookieJwtAuth, async (req, res) => {
         return res.status(400).send("To'g'ri javoblar sonini to'g'ri kiriting")
     }
 
-    try{
-        let query = new Query({question_text: req.body.text_question.question_text});
+    try {
+        let query = new Query({ question_text: req.body.text_question.question_text });
         let newquestion = await query.save();
 
-        let answer1 = new Answer({answer_text: req.body.test_answer1.answer_text});
+        let answer1 = new Answer({ answer_text: req.body.test_answer1.answer_text });
         let newanswer1 = await answer1.save();
 
-        let answer2 = new Answer({answer_text: req.body.test_answer2.answer_text});
+        let answer2 = new Answer({ answer_text: req.body.test_answer2.answer_text });
         let newanswer2 = await answer2.save();
 
-        let answer3 = new Answer({answer_text: req.body.test_answer3.answer_text});
+        let answer3 = new Answer({ answer_text: req.body.test_answer3.answer_text });
         let newanswer3 = await answer3.save();
 
-        let answer4 = new Answer({answer_text: req.body.test_answer4.answer_text});
+        let answer4 = new Answer({ answer_text: req.body.test_answer4.answer_text });
         let newanswer4 = await answer4.save();
 
         // console.log({ text_question: newquestion._id, test_answer1: newanswer1._id, test_answer2: newanswer2._id, test_answer3: newanswer3._id, test_answer4: newanswer4._id, group_id: req.body.group_id})
         // const errorfull = validate({ text_question: newquestion._id, test_answer1: newanswer1._id, test_answer2: newanswer2._id, test_answer3: newanswer3._id, test_answer4: newanswer4._id, group_id: req.body.group_id})
         // if(errorfull)
         //     return res.status(400).send(errorfull.error.details[0].message);
-            // console.log(error)
-        
+        // console.log(error)
+
         let test = new Test({
             text_question: newquestion._id,
             test_answer1: newanswer1._id,
@@ -103,28 +103,28 @@ router.post('/', cookieJwtAuth, async (req, res) => {
 
         let answer = null;
 
-        if(reightAnswer === 1){
+        if (reightAnswer == 1) {
             answer = new CorrectAnswer({
                 test_id: newtest._id,
                 answer_id: newanswer1._id
             })
         }
 
-        if(reightAnswer === 2){
+        if (reightAnswer == 2) {
             answer = new CorrectAnswer({
                 test_id: newtest._id,
                 answer_id: newanswer2._id
             })
         }
-        
-        if(reightAnswer === 3){
+
+        if (reightAnswer == 3) {
             answer = new CorrectAnswer({
                 test_id: newtest._id,
                 answer_id: newanswer3._id
             })
         }
 
-        if(reightAnswer === 4){
+        if (reightAnswer == 4) {
             answer = new CorrectAnswer({
                 test_id: newtest._id,
                 answer_id: newanswer4._id
@@ -133,11 +133,56 @@ router.post('/', cookieJwtAuth, async (req, res) => {
 
         await answer.save()
 
-        return res.status(201).send(_.pick(newtest, ['_id', 'text_question',"test_answer1","test_answer2","test_answer3","test_answer4",,"group_id"]));
-    }catch(err){
+        return res.status(201).send(_.pick(newtest, ['_id', 'text_question', "test_answer1", "test_answer2", "test_answer3", "test_answer4", , "group_id"]));
+    } catch (err) {
         return res.status(404).send("Ushbu testni saqlashning imkoni bo'lmadi");
     }
 
 });
+
+router.get('/testlist', cookieJwtAuth, async (req, res) => {
+    try {
+        const testlist = await Test.find({ group_id: req.user.group }).populate('text_question').populate('test_answer1').populate('test_answer2').populate('test_answer3').populate('test_answer4')
+        return res.send(testlist)
+    } catch (error) {
+        return res.status(404).send("List do not created");
+    }
+})
+
+router.post('/corrects', cookieJwtAuth, async (req, res) => {
+
+    let correct_answers = 0
+    for (const [key, value] of Object.entries(req.body)) {
+
+        let answer = await CorrectAnswer.findOne({ test_id: key });
+
+        if (answer) {
+            if (answer.answer_id == value) {
+                correct_answers = correct_answers + 1
+            }
+        }
+
+    }
+    
+    const old_result = await Result.findOne({user: req.user._id})
+    let again = false
+    if (old_result) {
+        again = true
+    }
+
+    let result = new Result({
+        user: req.user._id,
+        correct_answer: correct_answers
+    })
+    result.save();
+
+    return res.render('information', {
+        name: req.user.name,
+        correct_answers: correct_answers,
+        again: again,
+        success: true
+    })
+
+})
 
 module.exports = router;

@@ -80,11 +80,39 @@ $(document).ready(function () {
 
         axios(options)
             .then(response => {
+                // const test = response.data
+                window.location.reload();
+            })
+            .catch(err => {
+                console.log(err)
+                alert('Error: ' + 'Xatolik yuzaga keldi')
+            })
+    })
+
+    const getTestList = () => {
+        const options = {
+            url: '/fulltest/testlist',
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            data: {}
+        }
+
+        axios(options)
+            .then(response => {
                 const test = response.data
                 console.log(test)
+                test.forEach(element => {
+                    $('#testlist').append(`
+                    <div class="ui piled segment ex-test"><h4 class="ui block header">${element.text_question.question_text}</h4><div class="my-test-body"> <p>${element.test_answer1.answer_text}</p><p>${element.test_answer2.answer_text}</p><p>${element.test_answer3.answer_text}</p><p>${element.test_answer4.answer_text}</p></div></div>
+                    `)
+                });
             })
             .catch(err => {
                 console.log(err)
             })
-    })
+    }
+    getTestList()
 })

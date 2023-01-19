@@ -1,0 +1,28 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+        link(rel="stylesheet", href="/css/semantic.css")
+        link(rel="stylesheet", href="/css/main.css")
+    body 
+        .ui.top.fixed.menu
+            .item
+                img.logo-img(src='/images/uzstat.png')
+            .user-name=name
+        .ui.container.my-container
+            if again
+                .ui.info.message.transition
+                    .header Ushbu testni qaytadan topshirdingiz
+                    ul.list
+                        li Natija qayta qabul qilindi.
+            .ui.massive.message 
+                h2.green Natija
+                p.ui.waring.text=`30 ta savoldan ${correct_answers} ta savolga to'gri javob berdingiz`
+                if success
+                    p(style="color: green")=`Tabriklaymiz siz yetarlicha savollarga javob berdingiz😀`
+                else
+                    p(style="color: red")=`Afsuski siz yetarlicha savollarga javob bermadingiz😔`
+        script(src="/js/jquery.js")

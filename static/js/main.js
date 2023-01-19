@@ -7,7 +7,7 @@ $backColor = '#feeff4';
 
 $(function(){
 	clock.init();
-    clock.start(1)
+    clock.start(30)
 });
 clock={
 	interval:null,
