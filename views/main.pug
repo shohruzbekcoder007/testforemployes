@@ -8,13 +8,15 @@ html(lang="en")
         link(rel="stylesheet", href="/css/semantic.css")
         link(rel="stylesheet", href="/css/main.css")
     body 
-        .ui.top.fixed.menu
-            .item
+        .ui.top.fixed.menu.my-nav
+            .item.left
                 img.logo-img(src='/images/uzstat.png')
             .user-name=name
-            .clock-wrap
-                .clock.pro-0
-                    .count
+            .item.right
+                a(href='/').ui.primary.button Chiqish
+        .clock-wrap
+            .clock.pro-0
+                .count
         form(action="/fulltest/corrects", method="post").ui.container.my-container
             if again
                 .ui.info.message.transition

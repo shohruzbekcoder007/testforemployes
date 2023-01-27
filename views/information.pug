@@ -8,10 +8,12 @@ html(lang="en")
         link(rel="stylesheet", href="/css/semantic.css")
         link(rel="stylesheet", href="/css/main.css")
     body 
-        .ui.top.fixed.menu
-            .item
+        .ui.top.fixed.menu.my-nav
+            .item.left
                 img.logo-img(src='/images/uzstat.png')
             .user-name=name
+            .item.right
+                a(href='/').ui.primary.button Chiqish
         .ui.container.my-container
             if again
                 .ui.info.message.transition
@@ -20,7 +22,7 @@ html(lang="en")
                         li Natija qayta qabul qilindi.
             .ui.massive.message 
                 h2.green Natija
-                p.ui.waring.text=`30 ta savoldan ${correct_answers} ta savolga to'gri javob berdingiz`
+                p.ui.waring.text=`${questions} ta savoldan ${correct_answers} ta savolga to'gri javob berdingiz`
                 if success
                     p(style="color: green")=`Tabriklaymiz siz yetarlicha savollarga javob berdingiz😀`
                 else

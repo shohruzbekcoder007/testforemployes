@@ -67,7 +67,6 @@ $(document).ready(function () {
             group_id: 1,
         }
 
-        console.log(ttt)
         const options = {
             url: '/fulltest',
             method: 'POST',
@@ -106,7 +105,7 @@ $(document).ready(function () {
                 console.log(test)
                 test.forEach(element => {
                     $('#testlist').append(`
-                    <div class="ui piled segment ex-test"><h4 class="ui block header">${element.text_question.question_text}</h4><div class="my-test-body"> <p>${element.test_answer1.answer_text}</p><p>${element.test_answer2.answer_text}</p><p>${element.test_answer3.answer_text}</p><p>${element.test_answer4.answer_text}</p></div></div>
+                        <div class="ui piled segment ex-test"><h4 class="ui block header">${element.text_question.question_text}</h4><div class="my-test-body"> <p>${element.test_answer1.answer_text}</p><p>${element.test_answer2.answer_text}</p><p>${element.test_answer3.answer_text}</p><p>${element.test_answer4.answer_text}</p></div></div>
                     `)
                 });
             })

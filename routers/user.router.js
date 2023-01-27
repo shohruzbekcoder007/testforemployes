@@ -63,7 +63,7 @@ router.post('/login', async (req, res) => {
             again = true
         }
         
-        const testlist = await Test.find({group_id : user.group}).populate('text_question').populate('test_answer1').populate('test_answer2').populate('test_answer3').populate('test_answer4')
+        const testlist = await Test.find({group_id : user.group}).limit(30).populate('text_question').populate('test_answer1').populate('test_answer2').populate('test_answer3').populate('test_answer4')
         return res.render('main', {
             name: user.name,
             testlist: testlist,
@@ -90,6 +90,15 @@ router.post('/login', async (req, res) => {
 router.get('/userlist', async(req, res) => {
     try {
         const userlist = await User.find();
+        return res.send(userlist);
+    } catch (err) {
+        return res.status(404).send("Xatolik yuzaga keldi");
+    }
+})
+
+router.get('/userlistbygroup', async(req, res) => {
+    try {
+        const userlist = await User.find({group: req.query.group});
         return res.send(userlist);
     } catch (err) {
         return res.status(404).send("Xatolik yuzaga keldi");

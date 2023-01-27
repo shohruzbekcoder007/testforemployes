@@ -1,0 +1,43 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+        link(rel="stylesheet", href="/css/semantic.css")
+        link(rel="stylesheet", href="/css/main.css")
+    body 
+        .ui.top.fixed.menu.my-nav
+            .item.left
+                img.logo-img(src='/images/uzstat.png')
+            .user-name=name
+            .item.right
+                a(href='/').ui.primary.button Chiqish
+        .my-container
+            .super-admin-navbar
+                .ui.buttons.blue
+                    a(href="/group").ui.blue.basic.button group yaratish
+                    a(href="/group/user").ui.blue.basic.button user yaratish
+                    a(href="/fulltest/results").ui.blue.button natijalarni ko'rish
+            .ui.attached.message
+                .header View the results
+                p This page for to view the results
+            //- form(action="/user/", method="post")
+            .ui.form.attached.fluid.segment
+                .two.fields
+                    .field
+                        select#group-select.ui.dropdown
+                    .field
+                        .ui.segment
+                            .ui.relaxed.divided.list#user-list
+            .ui.container(style="padding-top: 20px;")
+                .ui.segment
+                    .ui.relaxed.divided.list#result-list
+                        //- .item
+                            .content
+                                .header Snickerdoodle
+                                span An excellent companion
+        script(src="/js/jquery.js")
+        script(src="/js/axios.js")
+        script(src="/js/result.js")

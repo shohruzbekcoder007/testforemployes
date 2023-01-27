@@ -174,15 +174,29 @@ router.post('/corrects', cookieJwtAuth, async (req, res) => {
         user: req.user._id,
         correct_answer: correct_answers
     })
+
     result.save();
 
     return res.render('information', {
         name: req.user.name,
         correct_answers: correct_answers,
         again: again,
-        success: true
+        questions: Object.entries(req.body).length,
+        success: (correct_answers/Object.entries(req.body).length)*100 >= 56
     })
 
+})
+
+router.get('/results', cookieJwtAuth, async (req, res) => {
+    if (req.user.status === 1){
+        return res.render('super_admin_result',{
+            name: req.user.name
+        })
+    } else {
+        return res.render('login', {
+
+        })
+    }
 })
 
 module.exports = router;

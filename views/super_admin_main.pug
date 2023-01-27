@@ -8,16 +8,18 @@ html(lang="en")
         link(rel="stylesheet", href="/css/semantic.css")
         link(rel="stylesheet", href="/css/main.css")
     body 
-        .ui.top.fixed.menu
-            .item
+        .ui.top.fixed.menu.my-nav
+            .item.left
                 img.logo-img(src='/images/uzstat.png')
             .user-name=name
+            .item.right
+                a(href='/').ui.primary.button Chiqish
         .my-container
             .super-admin-navbar
                 .ui.buttons.blue
                     a(href="/group").ui.blue.button group yaratish
                     a(href="/group/user").ui.blue.basic.button user yaratish
-                    a.ui.blue.basic.button natijalarni ko'rish
+                    a(href="/fulltest/results").ui.blue.basic.button natijalarni ko'rish
             .ui.attached.message
                 .header Create group
                 p This page for to create new group
@@ -27,8 +29,9 @@ html(lang="en")
                     input(placeholder="Name", type="text", id='name' name="group_name")
                 .inline.field
                     button(type="submit").ui.blue.submit.button Submit
-            .group-list
-                #grouplist.ui.middle.aligned.divided.list
+            .group-list.ui.container
+                .ui.segment
+                    #grouplist.ui.middle.aligned.divided.list
         script(src="/js/jquery.js")
         script(src="/js/axios.js")
         script(src="/js/group.js")

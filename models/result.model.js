@@ -10,6 +10,10 @@ const resultSchema = new mongoose.Schema({
     correct_answer: {
         type: Number,
         required: true
+    },
+    create_date: {
+        type: Date,
+        default: new Date()
     }
 });
 

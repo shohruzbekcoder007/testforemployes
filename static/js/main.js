@@ -7,7 +7,7 @@ $backColor = '#feeff4';
 
 $(function(){
 	clock.init();
-    clock.start(30)
+    clock.start(1)
 });
 clock={
 	interval:null,
@@ -70,6 +70,7 @@ clock={
 	},
 	stop:function(){
         alert('Stop')
+		console.log("tugadi")
 		clearInterval(clock.interval);
 		$('.count').text(0);
 		$('.clock').removeAttr('style');
